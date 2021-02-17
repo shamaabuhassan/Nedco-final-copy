@@ -1,0 +1,37 @@
+﻿@using WebApplication1.Models;
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    int ?id = ViewBag.id;
+    int rc;
+    Customer[] customers = Customer.GetCustomers(new CustomerParameters { }, out rc);
+}
+@*
+    <div class="page-content two-columns">
+        <input type="text" placeholder="أدحل الكود" />
+        <a href="" class="brand-button">قم بالشحن</a>
+    </div>
+*@
+
+
+    <table style="">
+        <thead>
+            <tr>
+                <td>الاسم</td><td>رقم الجوال </td><td>الدولة</td><td>المدينة</td><td>القرية</td><td>الشارع</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Customer customer in customers)
+            {
+            <tr>
+                <td>@customer.Name</td>
+                <td>@customer.Telephone</td>
+                <td>@customer.CountryId</td>
+                <td>@customer.CityId</td>
+                <td>@customer.TownName</td>
+                <td>@customer.Street</td>
+            </tr>
+            }
+        </tbody>
+    </table>

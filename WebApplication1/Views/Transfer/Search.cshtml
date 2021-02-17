@@ -1,0 +1,26 @@
+﻿@using WebApplication1.Models
+@model TransferParameters
+
+@{
+    Layout = null;
+    if (ViewBag.transfers != null)
+    {
+        Transfer[] transfers = ViewBag.transfers;
+    }
+
+}
+
+@using (Html.BeginForm("Search", "Transfer", FormMethod.Get))
+{
+    <table>
+        <tbody>
+            <tr>
+                <td>Meter Id: </td>
+                <td>
+                    @Html.TextBoxFor(o => o.MeterId)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="submit" value="search" />
+   }

@@ -1,0 +1,290 @@
+﻿@*@using WebApplication1.Models
+    @model Meter
+
+
+    @{
+        int rc;
+        int result = 0;
+        if (ViewBag.result != null)
+        {
+            result = ViewBag.result;
+        }
+        if (result == 1)
+        {
+            <script>
+                alert('the card is added successfuly');
+            </script>
+            result = 0;
+        }
+
+        Customer[] customers = Customer.GetCustomers(new CustomerParameters { }, out rc);
+
+    }
+
+
+    <div style="flex:1; padding-left: 35px" class="vertical-align">
+
+        @using (Html.BeginForm("NewMeter", "NewCustomer", FormMethod.Post))
+        {
+
+            <table>
+
+                <tbody>
+
+
+                    <tr>
+                        <td>userid</td>
+                        <td>@Html.DropDownListFor(o => o.UserId, new SelectList(customers, "Id", "name"))</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Amount</td>
+                        <td>
+                            @Html.EditorFor(o => o.Amount)
+                            @Html.ValidationMessageFor(o => o.Amount, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>meterid</td>
+                        <td>
+                            @Html.EditorFor(o => o.Meterid)
+                            @Html.ValidationMessageFor(o => o.Meterid, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <input type="submit" value="NewMeter" />
+
+            <p> the result is:@result</p>
+
+        }
+
+    </div>
+
+
+    <div style="text-align: center;">
+        <div class="hexagon full small blue">
+
+            <span></span>
+            <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+        </div>
+        <div class="hexagon blue">
+            <span></span>
+
+            <div class="content">
+
+                <a class="brand-button brand-button-2" href="@Url.Action("NewCard", "NewCustomer")">تسجيل بطاقة جديدة</a>
+
+
+                <a class="brand-button brand-button-2" href="@Url.Action("NewCustomer","NewCustomer")">تسجيل مستخدم جديد</a>
+
+
+                <a class="brand-button brand-button-2" href="@Url.Action("NewMeter", "Customers")">تسجيل عداد جديد</a>
+
+
+                <a class="brand-button brand-button-2" href="@Url.Action("index", "Mainpage")">الصفحة الرئسية</a>
+
+            </div>
+        </div>
+    </div>*@
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script>
+        var url = {
+            get_customers: '/NewCustomer/Get'
+            , save_meter: '/NewCustomer/SaveNewMeter'
+            //, refresh_page:'/NewCustomer/NewMeter'
+        }
+    </script>
+    <script src="~/Scripts/angular.min.js"></script>
+
+    <script>
+        angular.module('app1', [])
+            .service('services', function ($http) {
+                return {
+                    getCustomers: function (parameters) {
+                        return $http.post(url.get_customers, parameters);
+                    }
+                    ,
+                    savemeter: function (meter) {
+                        return $http.post(url.save_meter, meter);
+                    }
+                    //,
+                    //refreshpage :function() {
+                    //    return $http.post(url.refresh_page);
+                    //}
+                };
+            })
+            .controller('ctrl1', function ($scope, $filter, $timeout, services) {
+
+                $scope.customers = [] //back from xhr result to put result on as variable
+                $scope.parameters = {//parameters will send
+                    letter: ''
+                }
+
+                $scope.meter = {//parameters will send to action
+                    UserId: ''
+                    , Amount: 0
+                    , MeterId: ''
+                }
+
+                $scope.getCustomers = function () {
+                    services.getCustomers($scope.parameters).then(
+                        function successCallback(response) {
+
+                            $scope.customers = response.data;
+                        },
+                        function errorCallback(response) {
+                            alert(response.statusText);
+                        });
+                }
+
+
+                $scope.savemeter = function () {
+                    //if ($scope.meter.Amount == 0) {
+                    //    alert('amount is required ');
+                    //}
+                    //if ($scope.meter.MeterId == '') {
+                    //    alert('meter id is required ');
+                    //}
+                    services.savemeter($scope.meter).then(
+                        function successCallback(response) {
+                            if (response.data == 0) {
+                                alert('meter id is less or more than 12 digits please reenter');
+                            }
+                            if (response.data == 2) {
+                                alert('meter id is exist');
+                            }
+                            //$scope.customers = response.data;
+                            if (response.data == 3) {
+                                alert('user id is required');
+                            }
+                            if (response.data == 4) {
+                                alert('amount is required');
+                            }
+                            if (response.data == 5) {
+                                alert('meter id is required with 12 digits');
+                            }
+                            else if (response.data == 1){
+                                alert('the meter is added sucessfully');
+                                window.location.href = "/NewCustomer/NewMeter";
+                            }
+                        },
+                        function errorCallback(response) {
+                            alert(response.statusText);
+                          
+                        });
+                }
+
+
+            });
+
+
+    </script>
+</head>
+@*to define angular on body*@
+<body ng-app='app1' ng-controller="ctrl1">
+
+    <div style="flex:1; padding-left: 35px" class="vertical-align">
+        <table>
+            <tr>
+                <td> user</td>
+                <td>
+                    <input type="text" ng-change="getCustomers()" ng-model="parameters.letter" />
+                    @*ng model to give its cvalue to angular*@
+                    <br />
+
+                    @*meter to create another scope to send to action*@
+                    <select ng-model="meter.UserId">
+
+                        @*ng repeat as foreach  ,,,,,,, customers which we save response in*@
+                        <option ng-repeat="customer in customers" ng-value="customer.Id">{{customer.Name}}</option>
+                    </select>
+                </td>
+            </tr>
+        <tr>
+            <td>amount</td>
+            <td> <input type="text" ng-model="meter.Amount" placeholder="Amount" /></td>
+        </tr>
+        <tr>
+            <td>meterid</td>
+            <td><input type="text" ng-model="meter.MeterId" placeholder="MeterId" /></td>
+</tr>
+            </table>
+        <input type="button" value="Save" ng-click="savemeter()" />
+        @*user id :{{meter.UserId}}
+            <br />
+            Amount :{{meter.Amount}}
+            <br />
+            meter id:{{meter.Meterid}}*@
+        </div>
+
+
+
+        <div style="text-align: center;">
+            <div class="hexagon full small blue">
+
+                <span></span>
+                <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+            </div>
+            <div class="hexagon blue">
+                <span></span>
+
+                <div class="content">
+
+                    <a class="brand-button brand-button-2" href="@Url.Action("NewCard", "NewCustomer")">تسجيل بطاقة جديدة</a>
+
+
+                    <a class="brand-button brand-button-2" href="@Url.Action("NewCustomer","NewCustomer")">تسجيل مستخدم جديد</a>
+
+
+                    <a class="brand-button brand-button-2" href="@Url.Action("NewMeter", "Customers")">تسجيل عداد جديد</a>
+
+
+                    <a class="brand-button brand-button-2" href="@Url.Action("index", "Mainpage")">الصفحة الرئسية</a>
+
+                </div>
+            </div>
+        </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

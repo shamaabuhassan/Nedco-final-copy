@@ -1,0 +1,75 @@
+﻿@using WebApplication1.Models
+@model TransferParameters
+
+@{
+    Transfer[] transfers2 = null;
+    if (ViewBag.transfers2 != null)
+    {
+        transfers2 = ViewBag.transfers2;
+    }
+}
+
+
+@if (ViewBag.transfers2 != null)
+{
+    <div style="flex:1; padding-left: 35px" class="vertical-align">
+        <table>
+            <thead>
+                <tr>
+                    <td>رقم العملية</td>
+                    <td>الكود المستخدم في التحويل </td>
+                    <td>رقم العداد المحول اليه</td>
+                    <td>كمية التحويل</td>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (Transfer transfer in transfers2)
+                {
+                    <tr>
+                        <td>@transfer.Id</td>
+                        <td>@transfer.SenderOTP</td>
+                        <td>@transfer.MeterId</td>
+                        <td>@transfer.Amount</td>
+
+                    </tr>
+
+                }
+
+            </tbody>
+
+
+        </table>
+    </div>
+}
+
+
+<div style="text-align: center;">
+
+    <div class="hexagon full small blue">
+
+        <span></span>
+        <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+    </div>
+    <div class="hexagon blue">
+        <span></span>
+
+        <div class="content">
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Transfers", "Inquiries")">سجل التحويلات</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Charges","Inquiries")">سجل الشحن</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("MonthlyCharge", "Inquiries")">مجموع الشحن خلال فترة </a>
+
+            <a class="brand-button brand-button-2" href="@Url.Action("CodeCharging", "Inquiries")">مجموع قيم الأكواد</a>
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Mainpage")">الصفحة الرئسية</a>
+
+        </div>
+    </div>
+</div>
+
+

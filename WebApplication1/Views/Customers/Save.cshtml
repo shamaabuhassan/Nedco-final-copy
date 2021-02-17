@@ -1,0 +1,73 @@
+﻿@using WebApplication1.Models
+@model CustomerParameters
+
+@{
+    int rc;
+    Layout = null;
+    int result = 0;
+    if (ViewBag.result != null)
+    {
+        result = ViewBag.result;
+    }
+    CashCard[] cashCards = CashCard.GetCashCards(new CashCardParameters { }, out rc);
+    Area[] areas = Area.getareabytype(new AreaParameters { Type="s"}, out rc);
+    Area[] area = Area.getareabytype(new AreaParameters { Type = "c" }, out rc);
+    Area[] areass = Area.getareabytype(new AreaParameters { Type = "t" }, out rc);
+
+}
+
+@using (Html.BeginForm("Save", "Customers", FormMethod.Post))
+{
+    <table>
+
+        <tbody>
+
+            <tr><td>Id</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Id)</td></tr>
+
+            <tr><td>username</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Username)</td></tr>
+
+
+            <tr><td>cardid</td></tr>
+
+            <tr><td>@Html.DropDownListFor(o => o.CardId, new SelectList(cashCards, "Id", "SerialNumber"))</tr>
+
+            <tr><td>telephone</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Telephone)</td></tr>
+
+            <tr><td>countryid</td></tr>
+
+            <tr><td>@Html.DropDownListFor(o=>o.CountryId,new SelectList(areas,"Id","Name"))</td></tr>
+
+
+            <tr><td>cityid</td></tr>
+
+            <tr><td>@Html.DropDownListFor(o => o.CityId, new SelectList(area, "Id", "Name"))</td></tr>
+
+            <tr><td>Town</td></tr>
+
+            <tr><td>@Html.DropDownListFor(o => o.Town, new SelectList(areass, "Name", "Name"))</td></tr>
+
+            <tr><td>street</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Street)</td></tr>
+
+            <tr><td>password</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Password)</td></tr>
+          
+            <tr><td>name</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Name)</td></tr>
+
+        </tbody>
+    </table>
+
+    <input type="submit" value="Save" />
+
+    <p> the result is:@result</p>
+}

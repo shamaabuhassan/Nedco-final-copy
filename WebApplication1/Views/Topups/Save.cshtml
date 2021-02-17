@@ -1,0 +1,52 @@
+﻿@using WebApplication1.Models
+@model TopupParameters
+
+@{
+    int rc;
+    Layout = null;
+    int result = 0;
+    if (ViewBag.result != null)
+    {
+        result = ViewBag.result;
+    }
+    Session["Customer"] = new Customer(4010);
+
+    Customer customer = (Session["customer"] as Customer);
+
+
+    Meter[] meters = Meter.GetMeters(new MeterParameters { UserId=customer.Id }, out rc);
+
+}
+
+@using (Html.BeginForm("Save", "Topups", FormMethod.Post))
+{
+    <table>
+
+        <tbody>
+
+            <tr><td>Id</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Id)</td></tr>
+
+            <tr><td>meterid</td></tr>
+
+            <tr><td>@Html.DropDownListFor(o=>o.MeterId, new SelectList(meters,"Meterid","Meterid"))</td></tr>
+
+            <tr><td>amount</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Amount)</td></tr>
+
+            <tr><td>cardid</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.SerialNUM)</td></tr>
+
+
+          
+
+        </tbody>
+    </table>
+
+    <input type="submit" value="Save" />
+
+    <p> the result is:@result</p>
+}

@@ -1,0 +1,100 @@
+﻿@using WebApplication1.Models
+@*@model Transfer*@
+@model Meter
+
+
+@{
+    Transfer[] transfers = new Transfer[] { };
+    if (ViewBag != null)
+    {
+        if(ViewBag.notrans==1)
+        {
+            <script>
+                alert('there is no tansfers');
+            </script>
+        }
+
+    }
+
+}
+
+    <div style="flex:1; padding-left: 35px" class="vertical-align">
+
+
+        @using (Html.BeginForm("Transfers", "Inquiries", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td> meter id</td>
+                    <td>
+                        @Html.EditorFor(o => o.Meterid, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Meterid, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+            </table>
+
+            <input type="submit" value="Transfers" />
+        }
+
+        @if (ViewBag.transfers != null)
+        {
+            transfers = ViewBag.transfers;
+            <table>
+                <thead>
+                    <tr>
+                        <td>رقم العملية</td>
+                        <td>الكود المستخدم في التحويل </td>
+                        <td>رقم العداد المحول اليه</td>
+                        <td>كمية التحويل</td>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (Transfer transfer in transfers)
+                    {
+                        <tr>
+                            <td>@transfer.Id</td>
+                            <td>@transfer.SenderOTP</td>
+                            <td>@transfer.MeterId</td>
+                            <td>@transfer.Amount</td>
+
+                        </tr>
+
+                    }
+
+                </tbody>
+
+            </table>
+        }
+    </div>
+
+
+<div style="text-align: center;">
+
+    <div class="hexagon full small blue">
+
+        <span></span>
+        <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+    </div>
+    <div class="hexagon blue">
+        <span></span>
+
+        <div class="content">
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Transfers", "Inquiries")">سجل التحويلات</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Charges","Inquiries")">سجل الشحن</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("MonthlyCharge", "Inquiries")">مجموع الشحن خلال فترة</a>
+
+            <a class="brand-button brand-button-2" href="@Url.Action("CodeCharging", "Inquiries")">مجموع قيم الأكواد</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Mainpage")">الصفحة الرئسية</a>
+
+        </div>
+    </div>
+</div>
+

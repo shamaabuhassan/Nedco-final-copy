@@ -1,0 +1,21 @@
+﻿@using WebApplication1.Models
+@model TopupParameters
+
+@{ 
+    int meterid = ViewBag.meterid;
+    int rc;
+    Topup[] topups = Topup.GetTopups(new TopupParameters { MeterId=meterid,Status="0"}, out rc);
+}
+
+    <table>
+        <thead><tr><td>>OTP</td></tr></thead>
+        <tbody>
+            
+            @foreach (Topup topup in topups)
+            {
+             <tr>
+                <td>@topup.OTP</td>
+             </tr>
+            }
+        </tbody>
+    </table>

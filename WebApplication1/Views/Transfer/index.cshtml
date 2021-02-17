@@ -1,0 +1,37 @@
+﻿@using WebApplication1.Models
+
+@{
+    Layout = null;
+    int rc;
+    int? id = ViewBag.id;
+    Transfer[] transfers = Transfer.GetTransfers(new TransferParameters { }, out rc);
+
+}
+
+<table>
+    <thead>
+        <tr>
+            <td>رقم العملية</td>
+            <td>الكود المستخدم في التحويل </td>
+            <td>رقم العداد المحول اليه</td>
+            <td>كمية التحويل</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (Transfer transfer in transfers)
+        {
+            <tr>
+                <td>@transfer.Id</td>
+                <td>@transfer.SenderOTP</td>
+                <td>@transfer.MeterId</td>
+                <td>@transfer.Amount</td>
+
+            </tr>
+
+        }
+
+    </tbody>
+
+
+</table>

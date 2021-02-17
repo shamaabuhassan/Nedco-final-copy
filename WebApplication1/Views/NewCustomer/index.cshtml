@@ -1,0 +1,35 @@
+﻿@using WebApplication1.Models
+
+    <div style="flex:1; padding-left: 35px" class="vertical-align">
+        <p style="text-align:right ; font-size:x-large; text-decoration:double; text-decoration-color:darkblue ">أهلا وسهلا بك عزيزي الموظف يمكنك انشاء حساب جديد هنا</p>
+    </div>
+
+
+<div style="text-align: center;">
+   
+    <div class="hexagon full small blue">
+
+        <span></span>
+        <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+    </div>
+    <div class="hexagon blue">
+        <span></span>
+
+        <div class="content">
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewCard", "NewCustomer")">تسجيل بطاقة جديدة</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Newcustomer","NewCustomer")">تسجيل مستخدم جديد</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewMeter", "NewCustomer")">تسجيل عداد جديد</a>
+           
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Mainpage")">الصفحة الرئسية</a>
+           
+        </div>
+    </div>
+</div>
+
+

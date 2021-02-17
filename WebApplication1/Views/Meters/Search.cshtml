@@ -1,0 +1,32 @@
+﻿@using WebApplication1.Models
+@model MeterParameters
+
+@{ 
+    Layout = null;
+    if (ViewBag.meters != null)
+    {
+        Meter[] meters = ViewBag.meters;
+    }
+}
+
+
+@using(Html.BeginForm("Serach","Meters",FormMethod.Post))
+{
+    <table>
+        <tbody>
+            <tr>
+                <td>UserId</td>
+            </tr>
+
+            <tr>
+                <td> @Html.TextBoxFor(o => o.UserId)</td>
+            </tr>
+
+
+        </tbody>
+
+
+    </table>
+
+    <input type="submit" value="Search" />
+}

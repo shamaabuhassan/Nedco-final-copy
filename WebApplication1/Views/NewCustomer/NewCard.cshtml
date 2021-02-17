@@ -1,0 +1,85 @@
+﻿@using WebApplication1.Models
+@model CashCard
+
+@{
+    int rc;
+    int? result = 0;
+
+    if (ViewBag != null) {
+        result = ViewBag.result;
+    }
+    if (result == 1)
+    {
+        <script>
+            alert('the card is added successfuly');
+        </script>
+        result = 0;
+    }
+    Customer[] customers = Customer.GetCustomers(new CustomerParameters { }, out rc);
+}
+
+
+<div style="flex:1; padding-left: 35px" class="vertical-align">
+    
+    @using (Html.BeginForm("NewCard", "NewCustomer", FormMethod.Post))
+    {
+        @*@Html.AntiForgeryToken();*@
+        <table>
+
+            <tbody>
+
+                @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+
+                <tr>
+                    <td>Amount *</td>
+                    <td>
+                        @Html.EditorFor(o => o.Amount, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Amount, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>serial number *</td>
+                    <td>
+                        @Html.EditorFor(o => o.SerialNumber, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.SerialNumber, "", new { @class = "text-danger" })
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <input type="submit" value="Save" />
+
+        <p> the result is:@result</p>
+    }
+</div>
+
+
+<div style="text-align: center;">
+    <div class="hexagon full small blue">
+
+        <span></span>
+        <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+    </div>
+    <div class="hexagon blue">
+        <span></span>
+
+        <div class="content">
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewCard", "NewCustomer")">تسجيل بطاقة جديدة</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewCustomer","NewCustomer")">تسجيل مستخدم جديد</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewMeter", "NewCustomer")">تسجيل عداد جديد</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Mainpage")">الصفحة الرئسية</a>
+
+        </div>
+    </div>
+</div>
+
+

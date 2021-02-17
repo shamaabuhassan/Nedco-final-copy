@@ -1,0 +1,231 @@
+body {
+    background: #dfdfdf;
+    display: block;
+    margin:0;
+    width: 100%;
+}
+
+.text-danger{
+    color:red;
+    
+}
+
+.field-validation-error{
+    color:red;
+}
+.page-wapper {
+    background-color: #dfdfdf;
+    background-image: url("../images/bg.png");
+    background-repeat: repeat-x;
+    background-size: contain;
+    margin: auto;
+    position: relative;
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+.page-wapper .logo {
+    width: 300px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.page-wapper .logo-horizantal {
+    width: 400px;
+}
+
+.page-wapper .logo-horizantal.small {
+    width: 250px;
+}
+
+.page-wapper .logo.logo-top {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+}
+
+.page-wapper .page-content {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.bottom-navigation {
+    background-color: #032855;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.bottom-navigation a {
+    flex: 0 0 30%;
+    text-align: center;
+    line-height: 70px;
+    padding: 15px 0;
+}
+
+.bottom-navigation a img {
+    height: 40px;
+}
+
+.brand-button {
+    background: #032855;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-bottom: 15px;
+}
+
+.brand-button:after,
+.brand-button:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    border: 25px solid #032855;
+}
+
+.brand-button-2{
+    background: #1c66c0;
+}
+
+.brand-button-2:after,
+.brand-button-2:before {
+    border: 25px solid #1c66c0;
+}
+
+.brand-button:before {
+    left: -50px;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.brand-button:after {
+    right: -50px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.brand-button.full-width {
+    flex: 0 0 calc(100% - 120px);
+    width: calc(100% - 120px);
+}
+
+
+input[type="text"] {
+    height: 45px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    width: 100%;
+}
+input[type="password"] {
+    height: 45px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.vertical-align{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hexagon {
+    position: relative;
+    width: 300px;
+    background-color: #dfdfdf;
+    margin: 86.60px auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    display: block;
+    top: 30px;
+}
+.hexagon.blue {
+    background-color: #032855;
+}
+.hexagon.full.small {
+    height: 150px;
+    zoom: 0.25;
+    margin: 40px auto;
+}
+.hexagon:before,
+.hexagon:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    width: 212.13px;
+    height: 212.13px;
+    -webkit-transform: scaleY(0.5774) rotate(-45deg);
+    -ms-transform: scaleY(0.5774) rotate(-45deg);
+    transform: scaleY(0.5774) rotate(-45deg);
+    background-color: inherit;
+    left: 43.9340px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.hexagon:before {
+    top: -106.0660px;
+}
+
+.hexagon:after {
+    bottom: -106.0660px;
+}
+
+/*cover up extra shadows*/
+.hexagon span {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    z-index: 2;
+    background: inherit;
+}
+
+.hexagon .content {
+    padding: 35px;
+    text-align: center;
+    z-index: 3;
+    position: relative;
+}
+table{
+    margin-top: 15px;
+}
+table th{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+table th,
+table td{
+    border: 1px solid #032855;
+    padding: 15px;
+}

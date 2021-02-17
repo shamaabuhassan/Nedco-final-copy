@@ -1,0 +1,108 @@
+﻿@using WebApplication1.Models
+@model CustomerParameters
+
+@{
+
+    int rc;
+    Customer[] customers = Customer.GetCustomers(new CustomerParameters { }, out rc);
+
+}
+<div style="flex:1; padding-left: 35px" class="vertical-align">
+
+    <table style="">
+        <thead>
+            <tr>
+                <td>الاسم</td>
+                <td>رقم الجوال </td>
+                <td>الدولة</td>
+                <td>المدينة</td>
+                <td>القرية</td>
+                <td>الشارع</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Customer customer in customers)
+            {
+                <tr>
+                    <td>@customer.Name</td>
+                    <td>@customer.Telephone</td>
+                    <td> @customer.CountryName</td>
+                    <td> @customer.CityName </td>
+                    <td>@customer.TownName</td>
+                    <td>@customer.Street</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+<div style="text-align: center;">
+    <div class="hexagon full small blue">
+        <span></span>
+        <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+    </div>
+    <div class="hexagon blue">
+        <span></span>
+
+        <div class="content">
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Mainpage","Mainpage")">الصفحة الرئيسية</a>
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "NewCustomer")">تسجيل مستخدم جديد</a>
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Area")">تسجيل منطقة جديدة</a>
+
+
+
+            @*@using (Html.BeginForm("MainPage", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="MainPage" class="brand-button brand-button-2" />
+            <a class="brand-button brand-button-2">الصفحة الرئيسية</a>
+        }*@
+
+            <a class="brand-button brand-button-2" href="@Url.Action("customerslist", "Customers")">قائمة المستخدمين</a>
+            @*@using (Html.BeginForm("Customers_list", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Customers_list" class="brand-button brand-button-2" />
+        }
+
+        <a class="brand-button brand-button-2">سجل العملاء</a>*@
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("RequestOTP", "RequestOTPS")">طلب كود شحن</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("chargingrequests", "Topups")">طلبات الشحن</a>
+            @*@using (Html.BeginForm("Charging_requests", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Charging_requests" class="brand-button brand-button-2" />
+            <a class="brand-button brand-button-2">طلبات الشحن</a>
+        }*@
+
+            <a class="brand-button brand-button-2" href="@Url.Action("transferrequests", "Transfer")">طلبات التحويل</a>
+
+            @*@using (Html.BeginForm("Transfer_requests", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Transfer_requests" class="brand-button brand-button-2" />
+            <a class="brand-button brand-button-2">طلبات التحويل</a>
+        }*@
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Charged", "Topups")">شحن العداد</a>
+            @*<input type="submit" value="Charge_meter" class="brand-button brand-button-2" />
+        <a class="brand-button brand-button-2">شحن العداد</a>*@
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Inquiries")">الاستعلامات</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Logout", "Mainpage")">تسجيل الخروج</a>
+            @*@using (Html.BeginForm("Logout", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Logout" class="brand-button brand-button-2" />
+           <a class="brand-button brand-button-2">الصفحة الرئيسية</a>
+        }*@
+        </div>
+    </div>
+</div>

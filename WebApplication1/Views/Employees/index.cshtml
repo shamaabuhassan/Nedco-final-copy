@@ -1,0 +1,31 @@
+﻿
+@using WebApplication1.Models
+@model EmployeeParameter
+
+@if (ViewBag.error == "2")
+{
+    <script>
+        alert('you entered wrong username pr password');
+
+    </script>
+}
+
+<div style="width: 60%" class="vertical-align">
+    <img class="logo-horizantal" src="~/images/logo-hor.png" />
+    <p style="font-size: 32px; color:#818181; margin-top:20px;">يمنحك Easy Charge شحن عدادك والتحويل بكل سهولة</p>
+</div>
+<div style="width: 40%;">
+    <div class="hexagon">
+        <span></span>
+        @using (Html.BeginForm("checklogin", "Employees", FormMethod.Post, new { @class = "content" }))
+        {
+            @*<input type="text" placeholder="الاسم" />*@
+            @Html.TextBoxFor(o => o.Username, new { placeholder = "الاسم",autocomplete = "off" })
+            @*<input type="text" placeholder="كلمة المرور" />*@
+            @Html.TextBoxFor(o => o.Password, new { placeholder = "كلمة المرور" ,@type="password" ,autocomplete="off"})
+            <input type="submit" value="Login" class="brand-button"  />
+            @*<a href="./form.html" class="brand-button">تسجيل الدخول</a>*@
+        }
+    </div>
+</div>
+

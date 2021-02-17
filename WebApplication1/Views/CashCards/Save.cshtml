@@ -1,0 +1,44 @@
+﻿@using WebApplication1.Models
+@model CashCardParameters 
+
+@{
+    int rc;
+    Layout = null;
+    int result = 0;
+    if(ViewBag.result!=null)
+    {
+        result = ViewBag.result;
+    }
+    Customer[] customers = Customer.GetCustomers(new CustomerParameters { }, out rc);
+}
+
+@using(Html.BeginForm("Save","CashCards",FormMethod.Post))
+{
+    <table>
+
+        <tbody>
+
+            <tr><td>Id</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Id)</td></tr>
+
+            @*<tr><td>Password</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Password)</td></tr>*@
+
+
+            <tr><td>Amount</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Amount)</td></tr>
+
+            <tr><td>cardid</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.SerialNumber)</td></tr>
+
+        </tbody>
+    </table>
+
+    <input type="submit" value="Save" />
+
+    <p> the result is:@result</p>
+}

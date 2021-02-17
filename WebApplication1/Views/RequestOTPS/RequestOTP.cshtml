@@ -1,0 +1,115 @@
+﻿@using WebApplication1.Models
+@model Topup
+@{
+    int rc;
+    Employee employee = (Session["employee"] as Employee);
+    Meter[] meters = Meter.GetMeters(new MeterParameters { }, out rc);
+
+    if(ViewBag.result !=4 && ViewBag.result != 2 && ViewBag.result != 1 && ViewBag.result !=null && ViewBag.result != 0)
+    {
+        <script>
+            alert('the amount in the card is @ViewBag.result');
+        </script>
+    }
+}
+
+
+    <div style="flex:1; padding-left: 35px" class="vertical-align">
+        @using (Html.BeginForm("RequestOTP", "RequestOTPS", FormMethod.Post)) { 
+            <table>
+                <tr>
+                    <td>رقم العداد</td>
+                    <td>@Html.DropDownListFor(o => o.MeterId, new SelectList(meters, "Meterid", "Meterid"))</td>
+                </tr>
+
+                <tr>
+                    <td>المبلغ المراد تحويله</td>
+                    <td>
+                        @Html.EditorFor(o => o.Amount, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Amount, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>رقم البطاقة </td>
+                    <td>
+                        @Html.EditorFor(o => o.SerialNUM, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.SerialNUM, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+            </table>
+        <input type="submit" value="RequestOTP" />
+            }
+    </div>
+
+
+<div style="text-align: center;">
+    <div class="hexagon full small blue">
+        <span></span>
+        <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+    </div>
+    <div class="hexagon blue">
+        <span></span>
+
+        <div class="content">
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Mainpage","Mainpage")">الصفحة الرئيسية</a>
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "NewCustomer")">تسجيل مستخدم جديد</a>
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Area")">تسجيل منطقة جديدة</a>
+
+
+            @*@using (Html.BeginForm("MainPage", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="MainPage" class="brand-button brand-button-2" />
+            <a class="brand-button brand-button-2">الصفحة الرئيسية</a>
+        }*@
+
+            <a class="brand-button brand-button-2" href="@Url.Action("customerslist", "Customers")">قائمة المستخدمين</a>
+            @*@using (Html.BeginForm("Customers_list", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Customers_list" class="brand-button brand-button-2" />
+        }
+
+        <a class="brand-button brand-button-2">سجل العملاء</a>*@
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("RequestOTP", "RequestOTPS")">طلب كود شحن</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("chargingrequests", "Topups")">طلبات الشحن</a>
+            @*@using (Html.BeginForm("Charging_requests", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Charging_requests" class="brand-button brand-button-2" />
+            <a class="brand-button brand-button-2">طلبات الشحن</a>
+        }*@
+
+            <a class="brand-button brand-button-2" href="@Url.Action("transferrequests", "Transfer")">طلبات التحويل</a>
+
+            @*@using (Html.BeginForm("Transfer_requests", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Transfer_requests" class="brand-button brand-button-2" />
+            <a class="brand-button brand-button-2">طلبات التحويل</a>
+        }*@
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Charged", "Topups")">شحن العداد</a>
+            @*<input type="submit" value="Charge_meter" class="brand-button brand-button-2" />
+        <a class="brand-button brand-button-2">شحن العداد</a>*@
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Inquiries")">الاستعلامات</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("Logout", "Mainpage")">تسجيل الخروج</a>
+            @*@using (Html.BeginForm("Logout", "Mainpage", FormMethod.Post))
+        {
+            <input type="submit" value="Logout" class="brand-button brand-button-2" />
+           <a class="brand-button brand-button-2">الصفحة الرئيسية</a>
+        }*@
+        </div>
+    </div>
+</div>
+

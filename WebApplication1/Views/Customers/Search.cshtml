@@ -1,0 +1,32 @@
+﻿@using WebApplication1.Models
+@model CustomerParameters
+
+@{
+    Layout = null;
+    if (ViewBag.customers != null)
+    {
+        Customer[] customers = ViewBag.customers;
+    }
+}
+
+@using (Html.BeginForm("Search", "Customers", FormMethod.Post))
+
+{
+    <table>
+        <tbody>
+            <tr>
+                <td>CountryId</td>
+            </tr>
+
+            <tr>
+                <td>@Html.TextBoxFor(o => o.CountryId)</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <input type="submit" value="Search" />
+
+
+}

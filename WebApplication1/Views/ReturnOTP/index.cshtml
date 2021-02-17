@@ -1,0 +1,15 @@
+﻿@using WebApplication1.Models
+@model TopupParameters
+
+@{
+    Layout = null;
+    Session["customer"] = new Customer(4005);
+
+}
+@using (Html.BeginForm("index", "ReturnOTP", FormMethod.Post))
+{
+    @Html.TextBoxFor(o => o.MeterId);
+
+    <input type="submit" value="Return" />
+
+}

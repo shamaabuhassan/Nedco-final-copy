@@ -1,0 +1,24 @@
+﻿@using WebApplication1.Models
+@model CashCardParameters
+
+@{
+    Layout = null;
+    if (ViewBag.cashCards != null)
+    {
+        CashCard[] cashCards = ViewBag.cashCards;
+    }
+}
+
+@using(Html.BeginForm("Search","CashCards",FormMethod.Post))
+{
+    <table>
+        <tbody>
+            <tr><td>CustomerId</td></tr>
+
+          <tr><td>@Html.TextBoxFor(o=>o.SerialNumber)</td></tr>
+
+        </tbody>
+    </table>
+
+    <input type="submit" value="Search" />
+}

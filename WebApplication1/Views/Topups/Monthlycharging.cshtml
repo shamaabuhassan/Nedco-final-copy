@@ -1,0 +1,33 @@
+﻿@using WebApplication1.Models
+@model TopupParameters
+
+@{
+    Session["customer"] = new Customer(4005);
+    Layout = null;
+    decimal? amount = 0;
+    decimal? count = 0;
+    decimal? result = 0;
+    if (ViewBag.amount != null)
+    {
+        amount = ViewBag.amount;
+        count = ViewBag.count;
+         result = decimal.Round(amount.Value / count.Value, 2);
+    }
+}
+<div style="flex:1; padding-left: 35px" class="vertical-align">
+
+    @using (Html.BeginForm("MonthlyCharging", "Inquiries", FormMethod.Post))
+    {
+        @Html.TextBoxFor(o => o.fromdate,new { type = "date" });
+
+        @Html.TextBoxFor(o => o.todate,new { type = "date" });
+
+       
+
+        <input type="submit" value="MonthlyCharge" />
+
+
+        <p>معدل الشحن الشهري هو:@result</p>
+
+    }
+    </div>

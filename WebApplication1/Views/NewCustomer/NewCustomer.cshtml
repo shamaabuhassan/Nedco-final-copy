@@ -1,0 +1,163 @@
+﻿@using WebApplication1.Models
+@model Customer
+
+
+@{
+    int rc;
+    int result = 0;
+    if (ViewBag.result != null)
+    {
+        result = ViewBag.result;
+    }
+    CashCard[] cashCards = CashCard.GetCashCardForCustomer(new CashCardParameters { }, out rc);
+    Area[] areas = Area.getareabytype(new AreaParameters { Type = "s" }, out rc);
+    Area[] area = Area.getareabytype(new AreaParameters { Type = "c" }, out rc);
+    Area[] areass = Area.getareabytype(new AreaParameters { Type = "t" }, out rc);
+
+    if (result == 1)
+    {
+        <script>
+            alert('the customer is added successfuly');
+        </script>
+        result = 0;
+    }
+    if (result== 4)
+    {
+        <script>
+            alert('the card id is null');
+        </script>
+        result = 0;
+    }
+    if (result == 5)
+    {
+        <script>
+            alert('the country id is null');
+        </script>
+        result = 0;
+    }
+    if (result == 6)
+    {
+        <script>
+            alert('the city id is null');
+        </script>
+        result = 0;
+    }
+    if (result == 7)
+    {
+        <script>
+            alert('the town id is null');
+        </script>
+        result = 0;
+    }
+}
+
+<div style="flex:1; padding-left: 35px" class="vertical-align">
+
+    @using (Html.BeginForm("Newcustomer", "NewCustomer", FormMethod.Post))
+    {
+        <table>
+
+            <tbody>
+
+                @*<tr><td>Id</td></tr>
+
+                    <tr><td>@Html.TextBoxFor(o => o.Id)</td></tr>*@
+
+                <tr>
+                    <td>username</td>
+                    <td>
+                        @Html.EditorFor(o => o.Username, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Username, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>cardid</td>
+                    <td>@Html.DropDownListFor(o => o.CardId, new SelectList(cashCards, "Id", "SerialNumber"))</td>
+                </tr>
+
+                <tr>
+                    <td>telephone</td>
+                    <td>
+                        @Html.EditorFor(o => o.Telephone, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Telephone, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>countryid</td>
+                    <td>@Html.DropDownListFor(o => o.CountryId, new SelectList(areas, "Id", "Name"))</td>
+                </tr>
+
+                <tr>
+                    <td>cityid</td>
+                    <td>@Html.DropDownListFor(o => o.CityId, new SelectList(area, "Id", "Name"))</td>
+                </tr>
+
+                <tr>
+                    <td>Town</td>
+                    <td>@Html.DropDownListFor(o => o.TownId, new SelectList(areass, "Id", "Name"))</td>
+                </tr>
+
+                <tr>
+                    <td>street</td>
+                    <td>
+                        @Html.EditorFor(o => o.Street, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Street, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>password</td>
+                    <td>
+                        @Html.EditorFor(o => o.Password, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Password, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>name</td>
+                    <td>
+                        @Html.EditorFor(o => o.Name, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(o => o.Name, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <input type="submit" value="Save" />
+
+        <p> the result is:@result</p>
+    }
+
+</div>
+
+
+<div style="text-align: center;">
+    <div class="hexagon full small blue">
+
+        <span></span>
+        <img src="~/images/user.png" style="width: 140px;z-index: 4;position: relative;" />
+    </div>
+    <div class="hexagon blue">
+        <span></span>
+
+        <div class="content">
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewCard", "NewCustomer")">تسجيل بطاقة جديدة</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewCustomer","NewCustomer")">تسجيل مستخدم جديد</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("NewMeter", "NewCustomer")">تسجيل عداد جديد</a>
+
+
+            <a class="brand-button brand-button-2" href="@Url.Action("index", "Mainpage")">الصفحة الرئسية</a>
+
+        </div>
+    </div>
+</div>
+
+

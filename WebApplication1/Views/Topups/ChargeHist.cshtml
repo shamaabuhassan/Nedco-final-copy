@@ -1,0 +1,53 @@
+﻿@using WebApplication1.Models
+@model TopupParameters
+@{
+    Layout = null;
+    Session["customer"] = new Customer(4005);
+    Customer customer = (Session["customer"] as Customer);
+    int rc;
+    Topup[] topups = new Topup[] { };
+
+
+}
+@if (Session["customer"] != null)
+{
+    Meter[] meters = Meter.GetMeters(new MeterParameters { UserId = customer.Id }, out rc);
+    string meterid = meters[0].Meterid;
+    topups = Topup.GetTopups(new TopupParameters { MeterId =meterid }, out rc);
+
+<table>
+    <thead>
+        <tr>
+            <td>رقم العملية</td>
+            <td>رقم العداد </td>
+            <td>كمية الشحن</td>
+            <td>رقم البطاقة</td>
+            <td>كود الشحن</td>
+            <td>تاريخ الشحن</td>
+            <td>تاريخ التفعيل</td>
+            <td>حالة الشحن</td>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (Topup topup in topups)
+        {
+            <tr>
+                <td>@topup.Id</td>
+                <td>@topup.MeterId</td>
+                <td>@topup.Amount</td>
+                <td>@topup.SerialNUM</td>
+                <td>@topup.OTP</td>
+                <td>@topup.ChargeDate</td>
+                <td>@topup.ActivationDate</td>
+                <td>@topup.Status</td>
+
+            </tr>
+
+        }
+
+    </tbody>
+
+
+</table>
+}

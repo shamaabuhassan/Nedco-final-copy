@@ -1,0 +1,49 @@
+﻿@using WebApplication1.Models
+@model MeterParameters
+
+@{
+    int rc;
+    Layout = null;
+    int result = 0;
+    if (ViewBag.result != null)
+    {
+        result = ViewBag.result;
+    }
+
+    Customer[] customers = Customer.GetCustomers(new CustomerParameters { }, out rc);
+
+}
+
+@using (Html.BeginForm("Save", "Meters", FormMethod.Post))
+{
+
+    <table>
+
+        <tbody>
+
+            @*<tr><td>Id</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Id)</td></tr>*@
+
+            <tr><td>userid</td></tr>
+
+            <tr><td>@Html.DropDownListFor(o => o.UserId, new SelectList(customers, "Id", "Username"))</td></tr>
+
+
+            <tr><td>Amount</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Amount)</td></tr>
+
+
+            <tr><td>meterid</td></tr>
+
+            <tr><td>@Html.TextBoxFor(o => o.Meterid)</td></tr>
+
+        </tbody>
+    </table>
+
+    <input type="submit" value="Save" />
+
+    <p> the result is:@result</p>
+
+}
