@@ -35,12 +35,14 @@ namespace WebApplication1.Controllers
                     return View();
 
                 }
-                CashCard cashCard = new CashCard(null, Amount, SerialNumber);
-                //   int result;
-                //result = cashCard.SaveData();
-               
-                return View(cashCard);
+                else
+                {
+                    CashCard cashCard = new CashCard(null, Amount, SerialNumber);
+                    //   int result;
+                    //result = cashCard.SaveData();
 
+                    return View(cashCard);
+                }
              
             }
         }
@@ -101,10 +103,12 @@ namespace WebApplication1.Controllers
                     return View();
 
                 }
+                else
+                {
+                    Customer customer = new Customer(null, username, cardId, telephone, countryId, cityId, townid, street, password, name);
 
-                Customer customer = new Customer(null, username, cardId, telephone, countryId, cityId, townid, street, password, name);
-
-                return View(customer);
+                    return View(customer);
+                }
             }
             
         }
